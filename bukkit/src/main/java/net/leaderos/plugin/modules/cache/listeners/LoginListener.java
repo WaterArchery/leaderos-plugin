@@ -1,5 +1,6 @@
 package net.leaderos.plugin.modules.cache.listeners;
 
+import me.waterarchery.chickencommons.handlers.ExemptHandler;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.cache.model.User;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,8 @@ public class LoginListener implements Listener {
      */
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {
+        if (ExemptHandler.getInstance().isExempt(event.getPlayer().getUniqueId())) return;
+
         Bukkit.getFoliaLib().getScheduler().runAsync((task) -> User.loadPlayerCache(event.getPlayer()));
     }
 }

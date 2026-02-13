@@ -14,8 +14,8 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -101,6 +101,13 @@
             <artifactId>FoliaLib</artifactId>
             <version>0.5.1</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>me.waterarchery</groupId>
+            <artifactId>chickencommons</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
