@@ -13,6 +13,7 @@ import net.leaderos.plugin.commands.LeaderOSCommand;
 import net.leaderos.plugin.configuration.Config;
 import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
+import net.leaderos.plugin.database.DefaultRedisDatabase;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.DebugBukkit;
 import net.leaderos.plugin.modules.ai.AiModule;
@@ -135,6 +136,10 @@ public class Bukkit extends JavaPlugin {
 
         // Check updates
         checkUpdate();
+
+        if (modulesFile.getConnect().isUseRedis()) {
+            DefaultRedisDatabase.getInstance();
+        }
     }
 
     /**
@@ -142,6 +147,10 @@ public class Bukkit extends JavaPlugin {
      */
     public void onDisable() {
         LeaderOSAPI.getModuleManager().disableModules();
+
+        if (modulesFile.getConnect().isUseRedis()) {
+            DefaultRedisDatabase.getInstance().unsubscribe();
+        }
     }
 
     /**

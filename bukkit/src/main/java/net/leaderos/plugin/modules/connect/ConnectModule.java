@@ -1,20 +1,27 @@
 package net.leaderos.plugin.modules.connect;
 
+import com.chickennw.utils.models.redis.RedisMessage;
 import com.pusher.client.connection.ConnectionState;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.database.DefaultRedisDatabase;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.connect.listeners.LoginListener;
 import net.leaderos.plugin.modules.connect.timer.FallbackTimer;
 import net.leaderos.plugin.modules.connect.timer.ReconnectionTimer;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.modules.LeaderOSModule;
-import net.leaderos.shared.modules.connect.socket.SocketClient;
 import net.leaderos.shared.modules.connect.data.CommandsQueue;
+import net.leaderos.shared.modules.connect.socket.SocketClient;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Connect module main class
@@ -22,13 +29,13 @@ import java.util.List;
  * @author poyrazinan
  * @since 1.0
  */
+@Slf4j
 @Getter
 public class ConnectModule extends LeaderOSModule {
 
     /**
      * Socket client for connect to leaderos
      */
-    @Getter
     private SocketClient socket;
 
     /**
@@ -41,6 +48,8 @@ public class ConnectModule extends LeaderOSModule {
      */
     @Getter
     private static CommandsQueue commandsQueue;
+
+    private final HashMap<UUID, String> uuidCommandMap = new HashMap<>();
 
     /**
      * onEnable method of module
@@ -56,8 +65,8 @@ public class ConnectModule extends LeaderOSModule {
         }
 
         // Socket connection
-        socket = new SocketClient(Bukkit.getInstance().getConfigFile().getSettings().getApiKey(),
-                Bukkit.getInstance().getModulesFile().getConnect().getServerToken()) {
+        this.socket = new SocketClient(Bukkit.getInstance().getConfigFile().getSettings().getApiKey(),
+            Bukkit.getInstance().getModulesFile().getConnect().getServerToken()) {
             /**
              * Executes console command
              * @param commands command list to execute
@@ -92,10 +101,8 @@ public class ConnectModule extends LeaderOSModule {
 
                     // Check if the command is blacklisted
                     if (commandBlacklist.contains(commandRoot)) {
-                        String msg = ChatUtil.replacePlaceholders(
-                                Bukkit.getInstance().getLangFile().getMessages().getConnect().getCommandBlacklisted(),
-                                new Placeholder("%command%", command)
-                        );
+                        String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getCommandBlacklisted(),
+                            new Placeholder("%command%", command));
                         ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
                     } else {
                         // If command is valid, add to validatedCommands
@@ -104,33 +111,63 @@ public class ConnectModule extends LeaderOSModule {
                 }
 
                 // If player is offline and onlyOnline is true
-                if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && org.bukkit.Bukkit.getPlayer(username) == null) {
+                Player player = org.bukkit.Bukkit.getPlayer(username);
+                if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && player == null) {
                     commandsQueue.addCommands(username, validatedCommands);
 
                     validatedCommands.forEach(command -> {
-                        String msg = ChatUtil.replacePlaceholders(
-                                Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                new Placeholder("%command%", command)
-                        );
+                        String msg =
+                            ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                new Placeholder("%command%", command));
                         ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
                     });
-                } else {
+                } else if (player != null) {
                     // Execute validated commands
-                    Bukkit.getFoliaLib().getScheduler().runNextTick((task) -> {
+                    Bukkit.getFoliaLib().getScheduler().runNextTick(task -> {
                         validatedCommands.forEach(command -> {
                             org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
 
-                            String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
-                                    new Placeholder("%command%", command));
+                            String raw = Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand();
+                            String msg = ChatUtil.replacePlaceholders(raw, new Placeholder("%command%", command));
                             ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
                         });
+                    });
+                } else if (Bukkit.getInstance().getModulesFile().getConnect().isUseRedis() &&
+                    Bukkit.getInstance().getModulesFile().getConnect().isRedisSender()) {
+                    String channel = Bukkit.getInstance().getModulesFile().getConnect().getRedisRewardChannel();
+                    DefaultRedisDatabase redis = DefaultRedisDatabase.getInstance();
+
+                    validatedCommands.forEach(command -> {
+                        UUID uuid = UUID.randomUUID();
+                        JSONObject json = new JSONObject();
+                        json.put("player", username);
+                        json.put("command", command);
+                        json.put("uuid", uuid.toString());
+
+                        RedisMessage redisMessage = new RedisMessage(channel, json);
+                        redis.publish(redisMessage);
+
+                        uuidCommandMap.put(uuid, command);
+                        log.info("Sending command '{}' for player '{}' via Redis on channel '{}'", command, username, channel);
+
+                        Bukkit.getFoliaLib().getScheduler().runLater((task) -> {
+                            if (uuidCommandMap.containsKey(uuid)) {
+                                log.info("No confirmation received for command '{}' and player '{}', adding to command queue.", command, username);
+                                commandsQueue.addCommands(username, List.of(command));
+
+                                String raw = Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand();
+                                String msg = ChatUtil.replacePlaceholders(raw, new Placeholder("%command%", command));
+                                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
+                            }
+                        }, 100);
                     });
                 }
             }
 
             @Override
             public void subscribed() {
-                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), Bukkit.getInstance().getLangFile().getMessages().getConnect().getSubscribedChannel());
+                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(),
+                    Bukkit.getInstance().getLangFile().getMessages().getConnect().getSubscribedChannel());
             }
         };
 
@@ -161,22 +198,24 @@ public class ConnectModule extends LeaderOSModule {
      * onReload method of module
      */
     public void onReload() {
-        socket.getPusher().disconnect();
+        this.socket.getPusher().disconnect();
     }
 
     /**
      * Check connection and reconnect
      */
     public void reconnect() {
-        if (socket.getPusher().getConnection().getState() == ConnectionState.DISCONNECTED) {
+        if (this.socket.getPusher().getConnection().getState() == ConnectionState.DISCONNECTED) {
             try {
-                socket.getPusher().connect();
-            } catch (Exception ignored) {}
+                this.socket.getPusher().connect();
+            } catch (Exception ignored) {
+            }
         }
     }
 
     /**
      * Constructor of connect
      */
-    public ConnectModule() {}
+    public ConnectModule() {
+    }
 }

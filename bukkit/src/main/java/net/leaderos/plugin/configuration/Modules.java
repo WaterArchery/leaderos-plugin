@@ -220,6 +220,12 @@ public class Modules extends OkaeriConfig {
                 "reload",
                 "ban"
         );
+
+        private boolean useRedis = false;
+
+        private boolean redisSender = false;
+
+        private String redisRewardChannel = "leaderosrewards";
     }
 
     /**

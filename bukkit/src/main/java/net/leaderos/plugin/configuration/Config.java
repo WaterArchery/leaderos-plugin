@@ -1,5 +1,6 @@
 package net.leaderos.plugin.configuration;
 
+import com.chickennw.utils.models.config.redis.RedisConfiguration;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
@@ -23,6 +24,9 @@ public class Config extends OkaeriConfig {
      */
     @Comment("Main settings")
     private Settings settings = new Settings();
+
+    @Comment("Redis configuration for plugin")
+    private RedisConfiguration redisConfiguration = new RedisConfiguration();
 
     /**
      * Settings configuration of config
