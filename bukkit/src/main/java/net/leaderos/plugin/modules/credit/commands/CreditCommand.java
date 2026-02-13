@@ -1,10 +1,8 @@
 package net.leaderos.plugin.modules.credit.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
-import dev.triumphteam.cmd.core.annotation.SubCommand;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
@@ -32,7 +30,7 @@ public class CreditCommand extends BaseCommand {
      * Base command
      * @param player executor
      */
-    @Default
+    @Command
     @Permission("leaderos.credit.see")
     public void defaultCommand(Player player) {
         if (!RequestUtil.canRequest(player.getUniqueId())) {
@@ -63,7 +61,7 @@ public class CreditCommand extends BaseCommand {
      * @param target player
      * @param a amount of credit
      */
-    @SubCommand(value = "send", alias = {"gönder", "gonder"})
+    @Command(value = "send", alias = {"gönder", "gonder"})
     @Permission("leaderos.credit.send")
     public void sendCommand(Player player, String target, Double a) {
         if (!RequestUtil.canRequest(player.getUniqueId())) {
@@ -137,7 +135,7 @@ public class CreditCommand extends BaseCommand {
      * @param sender executor
      * @param target player
      */
-    @SubCommand(value = "see", alias = {"göster", "goster", "gör", "gor", "bak"})
+    @Command(value = "see", alias = {"göster", "goster", "gör", "gor", "bak"})
     @Permission("leaderos.credit.see.other")
     public void showCommand(CommandSender sender, String target) {
         if (sender instanceof Player && !RequestUtil.canRequest(((Player)sender).getUniqueId())) {
@@ -176,7 +174,7 @@ public class CreditCommand extends BaseCommand {
      * @param target to deposit
      * @param amount of credit
      */
-    @SubCommand(value = "add", alias = "ekle")
+    @Command(value = "add", alias = "ekle")
     @Permission("leaderos.credit.add")
     public void addCommand(CommandSender sender, String target, Double amount) {
         amount = MoneyUtil.parseDouble(amount);
@@ -224,7 +222,7 @@ public class CreditCommand extends BaseCommand {
      * @param target player
      * @param amount of currency
      */
-    @SubCommand(value = "remove", alias = "sil")
+    @Command(value = "remove", alias = "sil")
     @Permission("leaderos.credit.remove")
     public void removeCommand(CommandSender sender, String target, Double amount) {
         amount = MoneyUtil.parseDouble(amount);
@@ -272,7 +270,7 @@ public class CreditCommand extends BaseCommand {
      * @param target player
      * @param amount new currency
      */
-    @SubCommand(value = "set", alias = "ayarla")
+    @Command(value = "set", alias = "ayarla")
     @Permission("leaderos.credit.set")
     public void setCommand(CommandSender sender, String target, Double amount) {
         amount = MoneyUtil.parseDouble(amount);

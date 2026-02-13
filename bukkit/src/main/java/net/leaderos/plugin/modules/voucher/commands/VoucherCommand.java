@@ -1,12 +1,10 @@
 package net.leaderos.plugin.modules.voucher.commands;
 
-import com.cryptomorin.xseries.XMaterial;
-import de.tr7zw.changeme.nbtapi.NBTItem;
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
-import dev.triumphteam.cmd.core.annotation.SubCommand;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.libs.nbtapi.NBTItem;
+import com.chickennw.utils.libs.xseries.XMaterial;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
@@ -42,7 +40,7 @@ public class VoucherCommand extends BaseCommand {
      * Default command of module
      * @param sender executor
      */
-    @Default
+    @Command
     public void defaultCommand(CommandSender sender) {
         if (sender.hasPermission("leaderos.voucher.give")) {
             ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getHelpStaff());
@@ -58,7 +56,7 @@ public class VoucherCommand extends BaseCommand {
      * @param player target
      * @param amount of credit
      */
-    @SubCommand(value = "give", alias = {"ver"})
+    @Command(value = "give", alias = {"ver"})
     @Permission("leaderos.voucher.give")
     public void giveCommand(CommandSender sender, Player player, Double amount) {
         amount = MoneyUtil.parseDouble(amount);
@@ -76,7 +74,7 @@ public class VoucherCommand extends BaseCommand {
      * @param player executor
      * @param amount of credit
      */
-    @SubCommand(value = "create", alias = {"oluştur", "olustur"})
+    @Command(value = "create", alias = {"oluştur", "olustur"})
     @Permission("leaderos.voucher.create")
     public void createCommand(Player player, Double amount) {
         amount = MoneyUtil.parseDouble(amount);

@@ -1,11 +1,11 @@
 package net.leaderos.plugin;
 
-import com.tcoded.folialib.FoliaLib;
-import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
-import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
-import dev.triumphteam.cmd.core.message.MessageKey;
-import eu.okaeri.configs.ConfigManager;
-import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
+import com.chickennw.utils.libs.cmd.bukkit.BukkitCommandManager;
+import com.chickennw.utils.libs.cmd.bukkit.message.BukkitMessageKey;
+import com.chickennw.utils.libs.cmd.core.message.MessageKey;
+import com.chickennw.utils.libs.config.configs.ConfigManager;
+import com.chickennw.utils.libs.config.configs.yaml.bukkit.YamlBukkitConfigurer;
+import com.chickennw.utils.libs.folia.FoliaLib;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.plugin.api.LeaderOSAPI;

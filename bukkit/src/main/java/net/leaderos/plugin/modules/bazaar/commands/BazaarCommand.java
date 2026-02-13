@@ -1,9 +1,8 @@
 package net.leaderos.plugin.modules.bazaar.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
@@ -25,7 +24,7 @@ public class BazaarCommand extends BaseCommand {
      * Default command of bazaar
      * @param player executor
      */
-    @Default
+    @Command
     @Permission("leaderos.bazaar.open")
     public void defaultCommand(Player player) {
         if (ModuleManager.getModule("Bazaar").isEnabled())

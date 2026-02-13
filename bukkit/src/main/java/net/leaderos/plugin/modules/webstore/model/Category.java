@@ -1,20 +1,16 @@
 package net.leaderos.plugin.modules.webstore.model;
 
-import com.cryptomorin.xseries.XMaterial;
+import com.chickennw.utils.libs.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtil;
-import net.leaderos.shared.exceptions.RequestException;
-import net.leaderos.shared.model.request.GetRequest;
-import net.leaderos.shared.model.request.impl.store.ListingRequest;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

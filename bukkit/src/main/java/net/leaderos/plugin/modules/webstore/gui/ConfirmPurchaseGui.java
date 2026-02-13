@@ -1,25 +1,19 @@
 package net.leaderos.plugin.modules.webstore.gui;
 
-import com.cryptomorin.xseries.XMaterial;
-import de.themoep.inventorygui.DynamicGuiElement;
-import de.themoep.inventorygui.GuiElementGroup;
-import de.themoep.inventorygui.InventoryGui;
-import de.themoep.inventorygui.StaticGuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.InventoryGui;
+import com.chickennw.utils.libs.themoep.inventorygui.StaticGuiElement;
+import com.chickennw.utils.libs.xseries.XMaterial;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.helpers.ItemUtil;
-import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
-import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.plugin.modules.webstore.model.Product;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * ConfirmPurchase GUI
+ *
  * @author firatkaya
  * @since 1.0.4
  */
@@ -28,11 +22,13 @@ public class ConfirmPurchaseGui {
     /**
      * Constructor of gui
      */
-    public ConfirmPurchaseGui() {}
+    public ConfirmPurchaseGui() {
+    }
 
     /**
      * Opens gui to player
-     * @param player to show gui
+     *
+     * @param player  to show gui
      * @param product to buy
      */
     public static void showGui(Player player, Product product) {
@@ -56,57 +52,57 @@ public class ConfirmPurchaseGui {
 
     /**
      * ConfirmPurchase GUI add product icon
-     * @param product to buy
      *
+     * @param product to buy
      * @return product icon
      */
     public static StaticGuiElement productIcon(Product product) {
         return new StaticGuiElement(
-                'p',
-                product.getProductIcon()
+            'p',
+            product.getProductIcon()
         );
     }
 
     /**
      * ConfirmPurchase GUI add confirm button
-     * @param player to buy product
-     * @param product to buy
-     * @param gui to manage gui
      *
+     * @param player  to buy product
+     * @param product to buy
+     * @param gui     to manage gui
      * @return confirm icon
      */
     public static StaticGuiElement confirmIcon(Player player, Product product, InventoryGui gui) {
         String displayName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getConfirmPurchase().getConfirmTitle());
         XMaterial material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getConfirmPurchase().getConfirmMaterial()).orElse(XMaterial.LIME_WOOL);
         return new StaticGuiElement(
-                'y',
-                ItemUtil.getItem(material, displayName),
-                1,
-                click -> {
-                    gui.close();
-                    WebStoreHelper.buyItem(player, product.getProductId());
-                    return true;
-                }
+            'y',
+            ItemUtil.getItem(material, displayName),
+            1,
+            click -> {
+                gui.close();
+                WebStoreHelper.buyItem(player, product.getProductId());
+                return true;
+            }
         );
     }
 
     /**
      * ConfirmPurchase GUI add cancel button
-     * @param gui to manage gui
      *
+     * @param gui to manage gui
      * @return cancel icon
      */
     public static StaticGuiElement cancelIcon(InventoryGui gui) {
         String displayName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getConfirmPurchase().getCancelTitle());
         XMaterial material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getConfirmPurchase().getCancelMaterial()).orElse(XMaterial.RED_WOOL);
         return new StaticGuiElement(
-                'n',
-                ItemUtil.getItem(material, displayName),
-                1,
-                click -> {
-                    gui.close();
-                    return true;
-                }
+            'n',
+            ItemUtil.getItem(material, displayName),
+            1,
+            click -> {
+                gui.close();
+                return true;
+            }
         );
     }
 }

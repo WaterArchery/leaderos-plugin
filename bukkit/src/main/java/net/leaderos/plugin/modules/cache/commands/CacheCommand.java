@@ -1,9 +1,8 @@
 package net.leaderos.plugin.modules.cache.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.SubCommand;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
@@ -23,7 +22,7 @@ public class CacheCommand extends BaseCommand {
      * @param target player to update
      */
     @Permission("leaderos.cache.update")
-    @SubCommand(value = "update", alias = {"reset"})
+    @Command(value = "update", alias = {"reset"})
     public void updateCommand(CommandSender sender, String target) {
         Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
 

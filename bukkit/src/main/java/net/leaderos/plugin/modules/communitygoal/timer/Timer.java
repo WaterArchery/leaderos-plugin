@@ -1,6 +1,6 @@
 package net.leaderos.plugin.modules.communitygoal.timer;
 
-import com.tcoded.folialib.wrapper.task.WrappedTask;
+import com.chickennw.utils.libs.folia.wrapper.task.WrappedTask;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.communitygoal.managers.CommunityGoalManager;
 
@@ -26,8 +26,8 @@ public class Timer {
             task = null;
         }
 
-        task = Bukkit.getFoliaLib().getScheduler().runTimerAsync(() -> {
-            CommunityGoalManager.update();
-        }, 1L, 20 * Bukkit.getInstance().getModulesFile().getCommunityGoal().getUpdateSecond());
+        task = Bukkit.getFoliaLib()
+            .getScheduler()
+            .runTimerAsync(CommunityGoalManager::update, 1L, 20 * Bukkit.getInstance().getModulesFile().getCommunityGoal().getUpdateSecond());
     }
 }

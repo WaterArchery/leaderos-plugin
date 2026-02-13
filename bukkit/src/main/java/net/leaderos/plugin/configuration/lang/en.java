@@ -1,10 +1,9 @@
 package net.leaderos.plugin.configuration.lang;
 
-import eu.okaeri.configs.OkaeriConfig;
-import eu.okaeri.configs.annotation.Comment;
-import eu.okaeri.configs.annotation.NameModifier;
-import eu.okaeri.configs.annotation.NameStrategy;
-import eu.okaeri.configs.annotation.Names;
+import com.chickennw.utils.libs.config.configs.annotation.Comment;
+import com.chickennw.utils.libs.config.configs.annotation.NameModifier;
+import com.chickennw.utils.libs.config.configs.annotation.NameStrategy;
+import com.chickennw.utils.libs.config.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.plugin.configuration.Language;

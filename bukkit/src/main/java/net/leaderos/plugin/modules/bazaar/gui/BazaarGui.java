@@ -1,9 +1,9 @@
 package net.leaderos.plugin.modules.bazaar.gui;
 
-import de.themoep.inventorygui.DynamicGuiElement;
-import de.themoep.inventorygui.GuiElementGroup;
-import de.themoep.inventorygui.InventoryGui;
-import de.themoep.inventorygui.StaticGuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.DynamicGuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.GuiElementGroup;
+import com.chickennw.utils.libs.themoep.inventorygui.InventoryGui;
+import com.chickennw.utils.libs.themoep.inventorygui.StaticGuiElement;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;

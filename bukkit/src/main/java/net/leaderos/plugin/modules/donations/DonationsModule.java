@@ -1,8 +1,8 @@
 package net.leaderos.plugin.modules.donations;
 
-import com.cryptomorin.xseries.XMaterial;
-import com.cryptomorin.xseries.profiles.builder.XSkull;
-import com.cryptomorin.xseries.profiles.objects.Profileable;
+import com.chickennw.utils.libs.xseries.XMaterial;
+import com.chickennw.utils.libs.xseries.profiles.builder.XSkull;
+import com.chickennw.utils.libs.xseries.profiles.objects.Profileable;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtil;

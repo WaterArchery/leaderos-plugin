@@ -1,10 +1,8 @@
 package net.leaderos.plugin.modules.webstore.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
-import dev.triumphteam.cmd.core.annotation.SubCommand;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
@@ -30,7 +28,7 @@ public class WebStoreCommand extends BaseCommand {
      * Default command of webstore
      * @param player executor
      */
-    @Default
+    @Command
     @Permission("leaderos.webstore.open")
     public void defaultCommand(Player player) {
         LeaderOSAPI.getModuleManager();
@@ -50,7 +48,7 @@ public class WebStoreCommand extends BaseCommand {
      * @param categoryId category id to open
      */
     @Permission("leaderos.webstore.open")
-    @SubCommand("category")
+    @Command("category")
     public void categoryCommand(CommandSender sender, String categoryId) {
         if (!(sender instanceof Player)) return;
         if (!ModuleManager.getModule("WebStore").isEnabled()) return;
@@ -83,7 +81,7 @@ public class WebStoreCommand extends BaseCommand {
      * @param productId product id to buy
      */
     @Permission("leaderos.webstore.buy")
-    @SubCommand("buy")
+    @Command("buy")
     public void buyCommand(CommandSender sender, String productId) {
         if (!(sender instanceof Player)) return;
         if (!ModuleManager.getModule("WebStore").isEnabled()) return;

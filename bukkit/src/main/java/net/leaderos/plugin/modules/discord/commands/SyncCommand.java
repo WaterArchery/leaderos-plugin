@@ -1,9 +1,8 @@
 package net.leaderos.plugin.modules.discord.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
@@ -25,7 +24,7 @@ public class SyncCommand extends BaseCommand {
      * Default command of discord-sync
      * @param player executor
      */
-    @Default
+    @Command
     @Permission("leaderos.discord.sync")
     public void defaultCommand(Player player) {
         if (!RequestUtil.canRequest(player.getUniqueId())) {

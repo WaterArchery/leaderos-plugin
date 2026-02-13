@@ -1,8 +1,8 @@
 package net.leaderos.plugin.modules.bazaar.gui;
 
-import com.cryptomorin.xseries.XMaterial;
-import de.themoep.inventorygui.GuiStorageElement;
-import de.themoep.inventorygui.InventoryGui;
+import com.chickennw.utils.libs.themoep.inventorygui.GuiStorageElement;
+import com.chickennw.utils.libs.themoep.inventorygui.InventoryGui;
+import com.chickennw.utils.libs.xseries.XMaterial;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
@@ -11,8 +11,6 @@ import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.shared.error.Error;
-import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.impl.bazaar.AddBazaarItemRequest;
 import org.bukkit.Material;

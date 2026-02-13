@@ -1,9 +1,9 @@
 package net.leaderos.plugin.helpers;
 
-import com.cryptomorin.xseries.XMaterial;
-import de.themoep.inventorygui.GuiElement;
-import de.themoep.inventorygui.GuiPageElement;
-import de.themoep.inventorygui.StaticGuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.GuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.GuiPageElement;
+import com.chickennw.utils.libs.themoep.inventorygui.StaticGuiElement;
+import com.chickennw.utils.libs.xseries.XMaterial;
 import net.leaderos.plugin.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

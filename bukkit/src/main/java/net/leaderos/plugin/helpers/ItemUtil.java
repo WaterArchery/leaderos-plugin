@@ -1,8 +1,8 @@
 package net.leaderos.plugin.helpers;
 
-import com.cryptomorin.xseries.XEnchantment;
-import com.cryptomorin.xseries.XItemFlag;
-import com.cryptomorin.xseries.XMaterial;
+import com.chickennw.utils.libs.xseries.XEnchantment;
+import com.chickennw.utils.libs.xseries.XItemFlag;
+import com.chickennw.utils.libs.xseries.XMaterial;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

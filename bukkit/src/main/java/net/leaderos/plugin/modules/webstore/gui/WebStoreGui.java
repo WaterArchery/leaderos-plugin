@@ -1,9 +1,9 @@
 package net.leaderos.plugin.modules.webstore.gui;
 
-import de.themoep.inventorygui.DynamicGuiElement;
-import de.themoep.inventorygui.GuiElementGroup;
-import de.themoep.inventorygui.InventoryGui;
-import de.themoep.inventorygui.StaticGuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.DynamicGuiElement;
+import com.chickennw.utils.libs.themoep.inventorygui.GuiElementGroup;
+import com.chickennw.utils.libs.themoep.inventorygui.InventoryGui;
+import com.chickennw.utils.libs.themoep.inventorygui.StaticGuiElement;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;

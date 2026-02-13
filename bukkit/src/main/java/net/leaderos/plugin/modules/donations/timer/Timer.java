@@ -1,6 +1,6 @@
 package net.leaderos.plugin.modules.donations.timer;
 
-import com.tcoded.folialib.wrapper.task.WrappedTask;
+import com.chickennw.utils.libs.folia.wrapper.task.WrappedTask;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.donations.managers.DonationManager;
 

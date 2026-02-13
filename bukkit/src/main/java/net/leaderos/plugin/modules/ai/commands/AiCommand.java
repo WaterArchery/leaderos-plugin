@@ -1,10 +1,9 @@
 package net.leaderos.plugin.modules.ai.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
-import dev.triumphteam.cmd.core.annotation.Join;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.libs.cmd.core.annotations.Join;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
@@ -30,7 +29,7 @@ public class AiCommand extends BaseCommand {
      * @param player executor
      * @param prompt prompt
      */
-    @Default
+    @Command
     @Permission("leaderos.ai")
     public void aiCommand(Player player, @Join String prompt) {
         if (prompt == null || prompt.isEmpty()) {

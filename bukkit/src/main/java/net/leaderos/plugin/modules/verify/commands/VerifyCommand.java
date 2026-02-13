@@ -1,9 +1,8 @@
 package net.leaderos.plugin.modules.verify.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
@@ -28,7 +27,7 @@ public class VerifyCommand extends BaseCommand {
      * @param player executor
      * @param code code
      */
-    @Default
+    @Command
     @Permission("leaderos.verify")
     public void verifyCommand(Player player, String code) {
         if (!RequestUtil.canRequest(player.getUniqueId())) {

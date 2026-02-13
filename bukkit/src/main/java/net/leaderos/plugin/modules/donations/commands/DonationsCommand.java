@@ -1,10 +1,8 @@
 package net.leaderos.plugin.modules.donations.commands;
 
-import dev.triumphteam.cmd.bukkit.annotation.Permission;
-import dev.triumphteam.cmd.core.BaseCommand;
-import dev.triumphteam.cmd.core.annotation.Command;
-import dev.triumphteam.cmd.core.annotation.Default;
-import dev.triumphteam.cmd.core.annotation.SubCommand;
+import com.chickennw.utils.libs.cmd.bukkit.annotation.Permission;
+import com.chickennw.utils.libs.cmd.core.annotations.Command;
+import com.chickennw.utils.models.commands.BaseCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
@@ -27,7 +25,7 @@ public class DonationsCommand extends BaseCommand {
      * Default command of recent donations
      * @param player executor
      */
-    @Default
+    @Command
     @Permission("leaderos.donations.open")
     public void defaultCommand(Player player) {
         if (ModuleManager.getModule("Donations").isEnabled())
@@ -38,7 +36,7 @@ public class DonationsCommand extends BaseCommand {
      * updateCache command
      * @param sender executor
      */
-    @SubCommand(value = "update", alias = {"güncelle"})
+    @Command(value = "update", alias = {"güncelle"})
     @Permission("leaderos.donations.update")
     public void updateCacheCommand(CommandSender sender) {
         ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getUpdatedDonationDataMessage());

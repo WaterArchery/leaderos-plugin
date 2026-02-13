@@ -1,6 +1,6 @@
 package net.leaderos.plugin.modules.connect.timer;
 
-import com.tcoded.folialib.wrapper.task.WrappedTask;
+import com.chickennw.utils.libs.folia.wrapper.task.WrappedTask;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.model.request.GetRequest;
 import net.leaderos.shared.model.request.PostRequest;
