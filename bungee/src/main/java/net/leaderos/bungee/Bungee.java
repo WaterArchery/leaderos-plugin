@@ -20,7 +20,6 @@ import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.helpers.PluginUpdater;
 import net.leaderos.shared.helpers.UrlUtil;
 import net.md_5.bungee.api.plugin.Plugin;
-import org.bstats.bungeecord.Metrics;
 
 import java.io.File;
 
@@ -95,9 +94,6 @@ public class Bungee extends Plugin {
         } else {
             getModuleManager().enableModules();
         }
-
-        // bStats
-        Metrics metrics = new Metrics(this, 20386);
 
         // Check updates
         checkUpdate();

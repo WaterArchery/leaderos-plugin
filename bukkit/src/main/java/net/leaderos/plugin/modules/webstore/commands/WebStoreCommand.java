@@ -50,10 +50,8 @@ public class WebStoreCommand extends BaseCommand {
     @Permission("leaderos.webstore.open")
     @Command("category")
     public void categoryCommand(CommandSender sender, String categoryId) {
-        if (!(sender instanceof Player)) return;
+        if (!(sender instanceof Player player)) return;
         if (!ModuleManager.getModule("WebStore").isEnabled()) return;
-
-        Player player = (Player) sender;
 
         if (!RequestUtil.canRequest(player.getUniqueId())) {
             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
@@ -83,10 +81,8 @@ public class WebStoreCommand extends BaseCommand {
     @Permission("leaderos.webstore.buy")
     @Command("buy")
     public void buyCommand(CommandSender sender, String productId) {
-        if (!(sender instanceof Player)) return;
+        if (!(sender instanceof Player player)) return;
         if (!ModuleManager.getModule("WebStore").isEnabled()) return;
-
-        Player player = (Player) sender;
 
         WebStoreHelper.buyItem(player, productId);
     }

@@ -31,7 +31,6 @@ import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.helpers.PluginUpdater;
 import net.leaderos.shared.helpers.UrlUtil;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -130,9 +129,6 @@ public class Bukkit extends JavaPlugin {
         } else {
             LeaderOSAPI.getModuleManager().enableModules();
         }
-
-        // bStats
-        Metrics metrics = new Metrics(this, 20385);
 
         // Check updates
         checkUpdate();

@@ -30,7 +30,6 @@ import net.leaderos.velocity.modules.connect.ConnectModule;
 import net.leaderos.velocity.modules.credit.CreditModule;
 import net.leaderos.velocity.modules.discord.DiscordModule;
 import net.leaderos.velocity.modules.verify.VerifyModule;
-import org.bstats.velocity.Metrics;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -103,24 +102,17 @@ public class Velocity {
     private Shared shared;
 
     /**
-     * bStats metrics
-     */
-    private final Metrics.Factory metricsFactory;
-
-    /**
      * Constructor of main class
      * @param server proxyserver
      * @param logger logger class
      * @param dataDirectory data path
-     * @param metricsFactory bStats metrics
      */
     @Inject
-    public Velocity(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory) {
+    public Velocity(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
         instance = this;
         this.server = server;
         this.logger = logger;
         this.dataDirectory = dataDirectory;
-        this.metricsFactory = metricsFactory;
     }
 
     /**
@@ -160,9 +152,6 @@ public class Velocity {
                 .plugin(Velocity.getInstance())
                 .build();
         Velocity.getInstance().getCommandManager().register(commandMeta, new LeaderOSCommand());
-
-        // bStats
-        Metrics metrics = metricsFactory.make(this, 20387);
 
         // Check updates
         checkUpdate();
