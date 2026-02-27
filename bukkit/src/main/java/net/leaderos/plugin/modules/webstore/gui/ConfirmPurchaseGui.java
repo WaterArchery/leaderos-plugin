@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.webstore.gui;
 
-import com.chickennw.utils.libs.themoep.inventorygui.InventoryGui;
-import com.chickennw.utils.libs.themoep.inventorygui.StaticGuiElement;
+import de.themoep.inventorygui.InventoryGui;
+import de.themoep.inventorygui.StaticGuiElement;
 import com.chickennw.utils.libs.xseries.XMaterial;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;

@@ -1,5 +1,6 @@
 package net.leaderos.plugin;
 
+import com.chickennw.utils.ChickenUtils;
 import com.chickennw.utils.libs.cmd.bukkit.BukkitCommandManager;
 import com.chickennw.utils.libs.cmd.bukkit.message.BukkitMessageKey;
 import com.chickennw.utils.libs.cmd.core.message.MessageKey;
@@ -106,6 +107,7 @@ public class Bukkit extends JavaPlugin {
      * onEnable override method of Spigot library
      */
     public void onEnable() {
+        ChickenUtils.setPlugin(this);
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
 

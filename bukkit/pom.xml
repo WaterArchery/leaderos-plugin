@@ -119,8 +119,14 @@
         <dependency>
             <groupId>com.chickennw</groupId>
             <artifactId>chicken-utils</artifactId>
-            <version>1.4.0</version>
+            <version>1.4.4</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.themoep</groupId>
+            <artifactId>inventorygui</artifactId>
+            <!--The following version may not be the latest. Check it before using.-->
+            <version>1.6.6-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

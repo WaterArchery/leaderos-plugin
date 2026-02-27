@@ -20,7 +20,9 @@ public class LoginListener implements Listener {
      */
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {
-        if (ExemptHandler.getInstance().isExempt(event.getPlayer().getUniqueId())) return;
+        try {
+            if (ExemptHandler.getInstance().isExempt(event.getPlayer().getUniqueId())) return;
+        } catch (Exception ignored) { }
 
         Bukkit.getFoliaLib().getScheduler().runAsync((task) -> User.loadPlayerCache(event.getPlayer()));
     }

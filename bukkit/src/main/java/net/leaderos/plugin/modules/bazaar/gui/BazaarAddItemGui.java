@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.bazaar.gui;
 
-import com.chickennw.utils.libs.themoep.inventorygui.GuiStorageElement;
-import com.chickennw.utils.libs.themoep.inventorygui.InventoryGui;
+import de.themoep.inventorygui.GuiStorageElement;
+import de.themoep.inventorygui.InventoryGui;
 import com.chickennw.utils.libs.xseries.XMaterial;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;

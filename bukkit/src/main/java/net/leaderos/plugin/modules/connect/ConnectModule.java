@@ -112,7 +112,9 @@ public class ConnectModule extends LeaderOSModule {
 
                 // If player is offline and onlyOnline is true
                 Player player = org.bukkit.Bukkit.getPlayer(username);
-                if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && player == null) {
+                if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() &&
+                    player == null &&
+                    !Bukkit.getInstance().getModulesFile().getConnect().isUseRedis()) {
                     commandsQueue.addCommands(username, validatedCommands);
 
                     validatedCommands.forEach(command -> {
@@ -134,12 +136,13 @@ public class ConnectModule extends LeaderOSModule {
                     });
                 } else if (Bukkit.getInstance().getModulesFile().getConnect().isUseRedis() &&
                     Bukkit.getInstance().getModulesFile().getConnect().isRedisSender()) {
-                    String channel = Bukkit.getInstance().getModulesFile().getConnect().getRedisRewardChannel();
+                    String channel = Bukkit.getInstance().getConfigFile().getRedisConfiguration().getChannel();
                     DefaultRedisDatabase redis = DefaultRedisDatabase.getInstance();
 
                     validatedCommands.forEach(command -> {
                         UUID uuid = UUID.randomUUID();
                         JSONObject json = new JSONObject();
+                        json.put("method", "execute");
                         json.put("player", username);
                         json.put("command", command);
                         json.put("uuid", uuid.toString());

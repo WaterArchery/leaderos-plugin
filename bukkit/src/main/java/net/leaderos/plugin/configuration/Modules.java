@@ -223,8 +223,6 @@ public class Modules extends OkaeriConfig {
         private boolean useRedis = false;
 
         private boolean redisSender = false;
-
-        private String redisRewardChannel = "leaderosrewards";
     }
 
     /**
