@@ -119,9 +119,16 @@
         <dependency>
             <groupId>com.chickennw</groupId>
             <artifactId>chicken-utils</artifactId>
-            <version>1.4.4</version>
+            <version>1.5.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>me.waterarchery</groupId>
+            <artifactId>ChickenCrossApi</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>de.themoep</groupId>
             <artifactId>inventorygui</artifactId>

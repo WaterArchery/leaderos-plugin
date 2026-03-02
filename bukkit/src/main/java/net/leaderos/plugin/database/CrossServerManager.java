@@ -1,9 +1,10 @@
 package net.leaderos.plugin.database;
 
-import com.chickennw.utils.database.redis.RedisDatabase;
 import com.chickennw.utils.logger.LoggerFactory;
 import com.chickennw.utils.models.config.redis.RedisConfiguration;
-import com.chickennw.utils.models.redis.RedisMessage;
+import lombok.Getter;
+import me.waterarchery.cross.api.ChickenCrossApi;
+import me.waterarchery.cross.api.redis.DefaultRedisDatabase;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.configuration.Config;
@@ -15,29 +16,33 @@ import org.slf4j.Logger;
 
 import java.util.UUID;
 
-public class DefaultRedisDatabase extends RedisDatabase {
+@Getter
+public class CrossServerManager {
 
-    private static DefaultRedisDatabase instance;
+    private static CrossServerManager instance;
+    private final DefaultRedisDatabase redisDatabase;
     private final Logger logger;
 
-    public static DefaultRedisDatabase getInstance() {
+    public static CrossServerManager getInstance() {
         if (instance == null) {
             Config config = Bukkit.getInstance().getConfigFile();
-            instance = new DefaultRedisDatabase(config.getRedisConfiguration());
+            instance = new CrossServerManager(config.getRedisConfiguration());
         }
 
         return instance;
     }
 
-    private DefaultRedisDatabase(RedisConfiguration redisConfiguration) {
-        super(redisConfiguration);
+    private CrossServerManager(RedisConfiguration redisConfiguration) {
+        ChickenCrossApi chickenCrossApi = ChickenCrossApi.getInstance();
+        redisDatabase = chickenCrossApi.getRedisDatabase();
+
         logger = LoggerFactory.getLogger();
-        subscribe(redisConfiguration.getChannel());
+
+        Bukkit plugin = Bukkit.getInstance();
+        redisDatabase.registerRunnable(plugin.getName(), this::onMessage);
     }
 
-    @Override
-    public void onMessage(String channel, String message) {
-        logger.info("{}: {}", channel, message);
+    public void onMessage(String message) {
         JSONObject json = new JSONObject(message);
         String method = json.getString("method");
         if (method.equalsIgnoreCase("confirm")) {
@@ -64,8 +69,7 @@ public class DefaultRedisDatabase extends RedisDatabase {
                     confirm.put("method", "confirm");
                     confirm.put("uuid", uuid);
 
-                    RedisMessage publishMessage = new RedisMessage(channel, confirm);
-                    publish(publishMessage);
+                    redisDatabase.publish(confirm.toString());
                 });
             }
         }

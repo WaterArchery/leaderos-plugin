@@ -1,11 +1,10 @@
 package net.leaderos.plugin.modules.connect;
 
-import com.chickennw.utils.models.redis.RedisMessage;
 import com.pusher.client.connection.ConnectionState;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.leaderos.plugin.Bukkit;
-import net.leaderos.plugin.database.DefaultRedisDatabase;
+import net.leaderos.plugin.database.CrossServerManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.connect.listeners.LoginListener;
 import net.leaderos.plugin.modules.connect.timer.FallbackTimer;
@@ -137,7 +136,7 @@ public class ConnectModule extends LeaderOSModule {
                 } else if (Bukkit.getInstance().getModulesFile().getConnect().isUseRedis() &&
                     Bukkit.getInstance().getModulesFile().getConnect().isRedisSender()) {
                     String channel = Bukkit.getInstance().getConfigFile().getRedisConfiguration().getChannel();
-                    DefaultRedisDatabase redis = DefaultRedisDatabase.getInstance();
+                    CrossServerManager redis = CrossServerManager.getInstance();
 
                     validatedCommands.forEach(command -> {
                         UUID uuid = UUID.randomUUID();
@@ -147,8 +146,7 @@ public class ConnectModule extends LeaderOSModule {
                         json.put("command", command);
                         json.put("uuid", uuid.toString());
 
-                        RedisMessage redisMessage = new RedisMessage(channel, json);
-                        redis.publish(redisMessage);
+                        redis.getRedisDatabase().publish(json.toString());
 
                         uuidCommandMap.put(uuid, command);
                         log.info("Sending command '{}' for player '{}' via Redis on channel '{}'", command, username, channel);
@@ -177,7 +175,8 @@ public class ConnectModule extends LeaderOSModule {
         try {
             ReconnectionTimer.run();
             FallbackTimer.run();
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -194,7 +193,8 @@ public class ConnectModule extends LeaderOSModule {
             if (FallbackTimer.task != null) {
                 FallbackTimer.task.cancel();
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     /**

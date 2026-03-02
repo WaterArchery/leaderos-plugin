@@ -22,11 +22,11 @@ public class LoginListener implements Listener {
      */
     @EventHandler
     public void playerLoginEvent(PlayerJoinEvent event) {
-        try {
-            if (ExemptHandler.getInstance().isExempt(event.getPlayer().getUniqueId())) return;
-        } catch (Exception ignored) {
-        }
-
-        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> User.loadPlayerCache(event.getPlayer()));
+        ExemptHandler.getInstance()
+            .isExempt(event.getPlayer().getUniqueId())
+            .thenAccept(exempt -> {
+                if (exempt) return;
+                Bukkit.getFoliaLib().getScheduler().runAsync((task) -> User.loadPlayerCache(event.getPlayer()));
+            });
     }
 }
