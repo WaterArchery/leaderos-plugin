@@ -5,6 +5,8 @@ version: '${shared.version}'
 api-version: 1.13
 folia-supported: true
 softdepend: [PlaceholderAPI]
+depend:
+    - ChickenCrossApi
 libraries:
     - org.hibernate.orm:hibernate-hikaricp:7.2.1.Final
     - org.hibernate.orm:hibernate-core:7.2.1.Final

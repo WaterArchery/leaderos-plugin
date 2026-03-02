@@ -110,7 +110,7 @@ public class ConnectModule extends LeaderOSModule {
                 }
 
                 // If player is offline and onlyOnline is true
-                Player player = org.bukkit.Bukkit.getPlayer(username);
+                Player player = org.bukkit.Bukkit.getPlayerExact(username);
                 if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() &&
                     player == null &&
                     !Bukkit.getInstance().getModulesFile().getConnect().isUseRedis()) {
@@ -145,6 +145,7 @@ public class ConnectModule extends LeaderOSModule {
                         json.put("player", username);
                         json.put("command", command);
                         json.put("uuid", uuid.toString());
+                        json.put("plugin", Bukkit.getInstance().getName());
 
                         redis.getRedisDatabase().publish(json.toString());
 

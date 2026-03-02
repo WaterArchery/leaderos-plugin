@@ -1,13 +1,11 @@
 package net.leaderos.plugin.database;
 
 import com.chickennw.utils.logger.LoggerFactory;
-import com.chickennw.utils.models.config.redis.RedisConfiguration;
 import lombok.Getter;
 import me.waterarchery.cross.api.ChickenCrossApi;
 import me.waterarchery.cross.api.redis.DefaultRedisDatabase;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
-import net.leaderos.plugin.configuration.Config;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.connect.ConnectModule;
 import org.bukkit.entity.Player;
@@ -25,14 +23,13 @@ public class CrossServerManager {
 
     public static CrossServerManager getInstance() {
         if (instance == null) {
-            Config config = Bukkit.getInstance().getConfigFile();
-            instance = new CrossServerManager(config.getRedisConfiguration());
+            instance = new CrossServerManager();
         }
 
         return instance;
     }
 
-    private CrossServerManager(RedisConfiguration redisConfiguration) {
+    private CrossServerManager() {
         ChickenCrossApi chickenCrossApi = ChickenCrossApi.getInstance();
         redisDatabase = chickenCrossApi.getRedisDatabase();
 
@@ -56,7 +53,7 @@ public class CrossServerManager {
             String playerName = json.getString("player");
             String command = json.getString("command");
 
-            Player player = org.bukkit.Bukkit.getPlayer(playerName);
+            Player player = org.bukkit.Bukkit.getPlayerExact(playerName);
             logger.info("Redis reward channel: {}", uuid);
             if (player != null) {
                 logger.info("Player is online, executing command immediately.");
@@ -68,6 +65,7 @@ public class CrossServerManager {
                     JSONObject confirm = new JSONObject();
                     confirm.put("method", "confirm");
                     confirm.put("uuid", uuid);
+                    confirm.put("plugin", Bukkit.getInstance().getName());
 
                     redisDatabase.publish(confirm.toString());
                 });
